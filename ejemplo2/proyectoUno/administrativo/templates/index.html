@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Listado de Estudiantes
+Listado de Estudiantes
 {% endblock %}
 
 {% block content %}
@@ -9,26 +9,29 @@
 <h3>Número de estudiantes {{ numero_estudiantes }}</h3>
 
 <ul>
- {% for e in estudiantes %}
+  {% for e in estudiantes %}
 
   <li>
     {{e}} - [<a href="{% url 'obtener_estudiante' e.id %}">ver</a>] -
     [<a href="{% url 'editar_estudiante' e.id %}">editar</a>] -
-    [<a href="{% url 'eliminar_estudiante' e.id %}"
-      onclick="return confirm('¿Está seguro de la eliminación?')" >
+    [<a href="{% url 'eliminar_estudiante' e.id %}" onclick="return confirm('¿Está seguro de la eliminación?')">
       eliminar</a>]
-      <ul>
-        {% for t in e.numeros_telefonicos.all %}
-          <li>
-            <span>{{t.telefono}} - {{t.tipo}} - [<a href="{% url 'editar_numero_telefonico' t.id %}">editar</a>] </span>
-          </li>
-        {% endfor %}
-      </ul>
+    <ul>
+      {% for t in e.numeros_telefonicos.all %}
+      <li>
+        <span>{{t.telefono}} - {{t.tipo}} - {{t.obtenerOperadora}} - [<a
+            href="{% url 'editar_numero_telefonico' t.id %}">editar</a>]
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+    <span>Teléfonos Actuales {{e.obtenerNumeros}}</span>
+    <br>
     [<a href="{% url 'crear_numero_telefonico_estudiante' e.id%}">+Teléfono</a>]
   </li>
   <hr />
 
-{% endfor %}
+  {% endfor %}
 </ul>
 
 
