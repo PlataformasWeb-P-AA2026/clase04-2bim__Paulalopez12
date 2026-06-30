@@ -38,10 +38,8 @@ class NumeroTelefonico(models.Model):
 # crear una clase para contact now username, correo y el texto
 
 class Comentario(models.Model):
-    usuario = models.CharField(max_length=25)
+    username = models.CharField(max_length=100)
     correo = models.EmailField()
-    mensaje = models.TextField()
-  
-
+    comentario = models.TextField()
     def __str__(self):
-        return "%s %s %s" % (self.usuario, self.mensaje, self.correo)
+        return "%s %s %s" % (self.username, self.correo, self.comentario)

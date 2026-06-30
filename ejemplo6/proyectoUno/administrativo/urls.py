@@ -26,6 +26,6 @@ urlpatterns = [
             views.crear_numero_telefonico_estudiante, 
             name='crear_numero_telefonico_estudiante'),
         # comentarios
-        path('comentarios', views.comentario, 
-            name='comentario'),
- ]
+         path('crear/comentario', views.crear_comentario,
+            name='crear_comentario')
+]

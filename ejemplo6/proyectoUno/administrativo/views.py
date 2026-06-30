@@ -135,18 +135,17 @@ def crear_numero_telefonico_estudiante(request, id):
 
     return render(request, 'crearNumeroTelefonicoEstudiante.html', diccionario)
 
-def contact_now(request):
+def crear_comentario(request):
     """
     """
     if request.method=='POST':
-        formulario = ContactNowForm(request.POST)
+        formulario = ComentarioForm(request.POST)
         print(formulario.errors)
         if formulario.is_valid():
             formulario.save() # se guarda en la base de datos
             return redirect(index)
     else:
-        formulario = ContactNowForm()
+        formulario = ComentarioForm()
     diccionario = {'formulario': formulario}
-
-    return render(request, 'contactNow.html', diccionario)
+    return render(request, 'crearComentario.html', diccionario)
 
