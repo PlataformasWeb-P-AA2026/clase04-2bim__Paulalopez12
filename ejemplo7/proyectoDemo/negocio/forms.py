@@ -22,6 +22,18 @@ class PlatoForm(ModelForm):
                   'ingredientes_principales', 'chef']
         
 class ComentarioForm(ModelForm):
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = Comentario
-        fields = ['usuario', 'correo', 'mensaje']
+        fields = ['comentario']
+        labels = {
+            'comentario': _('Ingrese su comentario'),
+        }
+
+    def clean_comentario(self):
+        valor = self.cleaned_data['comentario']
+        if len(valor) < 25:
+            raise forms.ValidationError("Ingrese un comentario de al menos 25 caracteres")
+        return valor

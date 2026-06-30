@@ -153,20 +153,21 @@ def ver_plato(request, id):
                   informacion_template)
 
 @login_required(login_url='/entrando/login/')
-def comentar(request):
+def crear_comentario(request):
 
     if request.method == 'POST':
         formulario = ComentarioForm(request.POST)
 
         if formulario.is_valid():
-            formulario.save()
+            comentario = formulario.save(commit=False)
+            comentario.username = request.user.username
+            comentario.correo = request.user.email or ""
+            comentario.save()
             return redirect(index)
 
     else:
         formulario = ComentarioForm()
 
-    diccionario = {'formulario': formulario}
-
     return render(request,
-                  'ver_comentario.html',
-                  diccionario)
+                  'crear_comentario.html',
+                  {'formulario': formulario})
