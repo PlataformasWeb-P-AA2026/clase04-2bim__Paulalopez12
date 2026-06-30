@@ -35,3 +35,14 @@ class Plato(models.Model):
         return "%s %s %.2f - (%s)" % (self.nombre_plato, self.descripcion,
                                 self.precio_plato,
                                 self.chef.nombres)
+    
+#quiero que se agregue un formulario para agregar informacion considerando si estoy logiado o no, si estoy logiado que me permita agregar un comentario y
+#  si no estoy logiado que me regrese al login 
+class Comentario(models.Model):
+
+    usuario = models.CharField(max_length=25)
+    correo = models.EmailField()
+    mensaje = models.TextField()
+  
+    def __str__(self):
+        return "%s %s %s" % (self.usuario, self.mensaje, self.correo)
