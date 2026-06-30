@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django import forms
 
 from administrativo.models import Estudiante, \
-        NumeroTelefonico
+        NumeroTelefonico, ContactNow
 
 class EstudianteForm(ModelForm):
     class Meta:
@@ -70,3 +70,19 @@ class NumeroTelefonicoEstudianteForm(ModelForm):
     class Meta:
         model = NumeroTelefonico
         fields = ['telefono', 'tipo', 'estudiante']
+
+
+class ComentarioForm(ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['usuario', 'correo', 'mensaje']
+        widgets = {
+            
+            'mensaje': forms.Textarea(attrs={'rows': 5, 'class': 'form-control'}),
+        }
+    class cleanMensaje(forms.ModelForm):
+        def clean_mensaje(self):
+            mensaje = self.cleaned_data.get('mensaje')
+            if len(mensaje) < 25:
+                raise forms.ValidationError("El mensaje debe tener al menos 25 caracteres.")
+            return mensaje
